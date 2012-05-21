@@ -6,7 +6,7 @@
 <div class="row" metal:fill-slot="content" >
 <div class="span3">
 <p>メソッド名をクリックすると、ソースコードの該当個所へスクロールします。</p>
-<table phptal:cache="14d per url" id="methodlist" class="table-bordered table-striped"> 
+<table phptal:cache="14d per filename" id="methodlist" class="table-bordered table-striped"> 
 <thead> 
 	<tr>
 		<th>
@@ -40,7 +40,7 @@ $("table#methodlist tr").click(function(){
 </script>
 </div>
 
-<div phptal:cache="14d per url" id="sourcearea" class="span9">
+<div phptal:cache="14d per filename" id="sourcearea" class="span9">
 <?php
 // remove path higher than fuel
 // it might contain crucial information
@@ -50,7 +50,7 @@ $("table#methodlist tr").click(function(){
         </p>
 </div>
 	<pre class="pre-scrollable prettyprint">
-<tal:block tal:repeat="data source"><a tal:attributes="name repeat/data/key;id repeat/data/key"> </a>${data}</tal:block>
+<tal:block tal:repeat="data source" phptal:cache="14d per filename"><a tal:attributes="name repeat/data/key;id repeat/data/key"> </a>${data}</tal:block>
 </pre>
 <p>
 <a href="http://fuel.php-web.net/">TOPへ戻る</a> 
