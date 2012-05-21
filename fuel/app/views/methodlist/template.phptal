@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html metal:define-macro="template">
+<head>
+	<meta charset="utf-8" />
+	<title>FuelPHP クラス名検索</title>
+	<link rel="stylesheet" type="text/css" href="http://fuel.php-web.net/assets/css/bootstrap.css" tal:replace="structure php:Asset::css('bootstrap.css')" />
+	<script type="text/javascript" src="http://fuel.php-web.net/assets/js/jquery-1.7.2.min.js" tal:replace="structure php:Asset::js('jquery-1.7.2.min.js')"></script>
+	<link rel="stylesheet" type="text/css" href="http://fuel.php-web.net/assets/css/prettify.css" tal:replace="structure php:Asset::css('prettify.css')" />
+	<script type="text/javascript" src="http://fuel.php-web.net/assets/js/prettify.js" tal:replace="structure php:Asset::js('prettify.js')"></script>
+
+
+</head>
+<body onload="prettyPrint()">
+	<div class="container">
+		<div class="hero-unit">
+		<h1 id="applypos" tal:content="title">title here</h1>
+		</div>
+		<div class="alert alert-error" tal:condition="exists:error_message" tal:content="error_message" >error message sample</div>
+		
+<p tal:replace="structure html_form">Form</p>
+<div class="row" metal:define-slot="content">
+	contents here
+</div>
+		<footer>
+			<p class="pull-right"><a href="http://fuel.php-web.net/">http://fuel.php-web.net/</a> is programmed by <a href="http://php-web.net/">PHPでWEB作成</a></p>
+			<p>
+				<a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.<br />
+			</p>
+		</footer>
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html metal:use-macro="template.phptal/template">
+<body>
+	<div class="container">
+		
+<div class="row" metal:fill-slot="content" >
+<div class="span3">
+<p>メソッド名をクリックすると、ソースコードの該当個所へスクロールします。</p>
+<table phptal:cache="14d per url" id="methodlist" class="table-bordered table-striped"> 
+<thead> 
+	<tr>
+		<th>
+		method
+		</th>
+		<th>
+		start
+		</th>
+		<th>
+		end
+		</th>
+	</tr>
+</thead> 
+<tbody> 
+	<tr tal:repeat="datum data" tal:attributes="id datum/start">
+		<td tal:content="datum/method">
+		</td>
+		<td tal:content="datum/start">
+		</td>
+		<td tal:content="datum/end">
+		</td>
+	</tr>
+</tbody> 
+</table> 
+<script type="text/javascript">
+$("table#methodlist tr").click(function(){
+	var attrid = $(this).attr("id");
+	$(".pre-scrollable").scrollTop(0);
+	$(".pre-scrollable").scrollTop($("a[name="+attrid+"]").position().top-$(".pre-scrollable").position().top);
+});
+</script>
+</div>
+
+<div phptal:cache="14d per url" id="sourcearea" class="span9">
+<?php
+// remove path higher than fuel
+// it might contain crucial information
+?>
+<div tal:define="format string:File: %s line: %d - %d; fname php:substr(filename,strpos(filename,'fuel/'))">
+<p tal:content="structure php: sprintf(format, fname,startline,endline)">
+        </p>
+</div>
+	<pre class="pre-scrollable prettyprint">
+<tal:block tal:repeat="data source"><a tal:attributes="name repeat/data/key;id repeat/data/key"> </a>${data}</tal:block>
+</pre>
+<p>
+<a href="http://fuel.php-web.net/">TOPへ戻る</a> 
+</p>
+<iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FPhpwebnet%2F140943119319268&amp;width=630&amp;height=258&amp;colorscheme=light&amp;show_faces=true&amp;border_color&amp;stream=false&amp;header=false&amp;appId=128542090576120" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:630px; height:258px;" allowTransparency="true"></iframe>
+</div>
+</div>
+</div>
+	
+</body>
+</html>

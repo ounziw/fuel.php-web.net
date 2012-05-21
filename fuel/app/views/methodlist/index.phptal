@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html metal:use-macro="template.phptal/template">
+<body>
+	<div class="container">
+		
+<div class="row" metal:fill-slot="content" >
+<div phptal:cache="14d per url" class="classlist">
+	<div tal:repeat="datum classdata">
+		<a tal:replace="structure php:Html::anchor('methodlist/list/' . Security::xss_clean(datum),Security::xss_clean(datum))" >View</a>
+
+	</div>
+</div>
+</div>
+	</div>
+	
+</body>
+</html>
