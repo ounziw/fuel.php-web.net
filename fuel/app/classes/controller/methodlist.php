@@ -11,7 +11,7 @@ class Controller_Methodlist extends Controller
 	public function action_index()
 	{
 		$view = View_Phptal::forge('methodlist/index');
-		$view->set('title', '<b>クラス名検索</b>');
+		$view->set('title', 'クラス名検索');
 		$white = new Classlist();
 		$whiteclass = $white->getClassList();
 		sort($whiteclass);
