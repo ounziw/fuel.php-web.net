@@ -27,6 +27,7 @@ class Controller_Methodlist extends Controller
 		$form = Fieldset::forge();
 		$form->add('classname','クラス名')
 			->add_rule('trim')
+			->add_rule('valid_string',array('alpha','dashes'))
 			->add_rule('required')
 			->add_rule('max_length',30)
 			;
