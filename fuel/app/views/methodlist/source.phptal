@@ -38,6 +38,27 @@ $("table#methodlist tr").click(function(){
 	$(".pre-scrollable").scrollTop($("a[name="+attrid+"]").position().top-$(".pre-scrollable").position().top);
 });
 </script>
+<p tal:condition="php:!empty(inheriteddata)">親クラスで定義されたメソッド(クリックしても移動しません)</p>
+<table tal:condition="php:!empty(inheriteddata)" phptal:cache="14d per filename" id="inheritedmethods" class="table-bordered table-striped" style="word-break: break-all;"> 
+<thead> 
+	<tr>
+		<th>
+		method
+		</th>
+		<th>
+		class
+		</th>
+	</tr>
+</thead> 
+<tbody> 
+	<tr tal:repeat="datum inheriteddata">
+		<td tal:content="datum/method">
+		</td>
+		<td tal:content="datum/class">
+		</td>
+	</tr>
+</tbody> 
+</table> 
 </div>
 
 <div phptal:cache="14d per filename" id="sourcearea" class="span9">
