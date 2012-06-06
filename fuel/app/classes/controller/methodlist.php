@@ -1,14 +1,17 @@
 <?php
-/**
- * Controller_Methodlist 
- * 
- * @author Fumito MIZUNO <mizuno@php-web.net> 
- * @license LGPL {@link http://www.gnu.org/copyleft/lesser.html}
- */
+
 class Controller_Methodlist extends Controller
 {
 
 	public function action_index()
+	{
+		return Response::forge($this->_index());
+	}
+	public function action_404()
+	{
+		return Response::forge($this->_index(),404);
+	}
+	function _index()
 	{
 		$view = View_Phptal::forge('methodlist/index');
 		$view->set('title', 'クラス名検索');
