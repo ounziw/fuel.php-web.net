@@ -2,7 +2,7 @@
 <html metal:use-macro="template.phptal/template">
 <body>
 	<div class="container">
-		
+
 <div class="row" metal:fill-slot="content" >
 <div class="span3">
 <p>メソッド名をクリックすると、ソースコードの該当個所へスクロールします。</p>
@@ -68,11 +68,43 @@ $("table#methodlist tr").click(function(){
 ?>
 <div tal:define="format string:File: %s line: %d - %d; fname php:substr(filename,strpos(filename,'fuel/'))">
 <p tal:content="structure php: sprintf(format, fname,startline,endline)">
-        </p>
+		</p>
 </div>
 	<pre class="pre-scrollable prettyprint">
 <tal:block tal:repeat="data source" phptal:cache="14d per filename"><a tal:attributes="name repeat/data/key;id repeat/data/key"> </a>${data}</tal:block>
 </pre>
+		<p>
+		このページを <span id="number">1</span> 回閲覧しました。
+		前回の閲覧: <span id="lastview">0</span> 
+		</p>
+		<textarea cols="50" class="span9" rows="4" id="memotext" placeholder="You can enter a memo here."></textarea>
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		var val = 1;
+		var data = localStorage.getItem("<tal:block tal:content="classname">num</tal:block>Val");
+		if (data !== null) {
+			val += parseInt(data);
+		}
+		localStorage.setItem("<tal:block tal:content="classname">num</tal:block>Val",val);
+		$('#number').text(val);
+
+		var dateval = 'first time';
+		var tmpdata = localStorage.getItem("<tal:block tal:content="classname">num</tal:block>Date");
+		if (tmpdata !== null) {
+			dateval = tmpdata;
+		}
+		$('#lastview').text(dateval);
+		nowdate = new Date();
+		datein = nowdate.getFullYear()  + "年" + (nowdate.getMonth() + 1) + "月" + nowdate.getDate() + "日";
+		localStorage.setItem("<tal:block tal:content="classname">num</tal:block>Date",datein);
+		$(document).ready(function(){
+			$('#memotext').val(localStorage.getItem('<tal:block tal:content="classname">class</tal:block>Text'));
+		});
+		$('#memotext').keyup(function(){
+				localStorage.<tal:block tal:content="classname">class</tal:block>Text = jQuery('#memotext').val();
+		});
+	});
+</script>
 <p>
 <a href="http://fuel.php-web.net/">TOPへ戻る</a> 
 </p>
@@ -80,6 +112,6 @@ $("table#methodlist tr").click(function(){
 </div>
 </div>
 </div>
-	
+
 </body>
 </html>
