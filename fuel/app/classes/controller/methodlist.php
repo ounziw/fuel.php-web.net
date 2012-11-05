@@ -113,6 +113,7 @@ class Controller_Methodlist extends Controller
 		$reflect = new SourceView($classname);
 		$view = View_Phptal::forge('methodlist/source');
 		$view->set('title', 'クラス名:' . $classname);
+		$view->set('classname',$classname);
 		$view->set('filename', $reflect->getFilename());
 		$view->set('startline', $reflect->getStartLine());
 		$view->set('endline', $reflect->getEndLine());

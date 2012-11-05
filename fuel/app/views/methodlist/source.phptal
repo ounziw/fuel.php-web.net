@@ -101,7 +101,7 @@ $("table#methodlist tr").click(function(){
 			$('#memotext').val(localStorage.getItem('<tal:block tal:content="classname">class</tal:block>Text'));
 		});
 		$('#memotext').keyup(function(){
-				localStorage.<tal:block tal:content="classname">class</tal:block>Text = jQuery('#memotext').val();
+				localStorage.setItem('<tal:block tal:content="classname">class</tal:block>Text',jQuery('#memotext').val());
 		});
 	});
 </script>
