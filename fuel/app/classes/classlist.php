@@ -1,8 +1,4 @@
 <?php
-/**
- *  GNU Lesser General Public License
- *  http://www.gnu.org/copyleft/lesser.html
- */
 
 class Classlist {
 protected $classlist = array(
@@ -50,6 +46,7 @@ protected $classlist = array(
 "File",
 "Finder",
 "Form",
+"Form_Instance",
 "Format",
 "Ftp",
 "Fuel",
