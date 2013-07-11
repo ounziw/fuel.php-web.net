@@ -50,6 +50,6 @@ class Tests_Methodlist extends \TestCase
 	 **/
 	function test_sourceview_argument_null_raises_exception()
 	{
-		$data = Controller_Methodlist::_sourceview('');
+		$data = Controller_Methodlist::_sourceview(NULL);
 	}
 }
