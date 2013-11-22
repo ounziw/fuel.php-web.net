@@ -41,7 +41,7 @@ class SourceView extends ReflectionClass {
 	function outData($escape='true') {
 		$startline = $this->getStartLine();
 		$endline = $this->getEndLine();
-		$out =array();
+		$out = array();
 		for($i=$startline-1;$i<$endline;$i++) {
 			if ('not-escape' == $escape) {
 				$out[1+$i] = $this->data[$i];
@@ -63,7 +63,7 @@ class SourceView extends ReflectionClass {
 		if(!is_array($methods)) {
 			throw new InvalidArgumentException("getMethods not return array");
 		}
-		if(array() ==$methods) {
+		if(array() == $methods) {
 			throw new InvalidArgumentException("getMethods return empty array");
 		}
 		foreach ($methods as $method)

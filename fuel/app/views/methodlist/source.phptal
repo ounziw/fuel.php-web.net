@@ -3,114 +3,145 @@
 <body>
 <div class="container">
 
-<div class="row" metal:fill-slot="content" >
-<div class="span3">
-<p>メソッド名をクリックすると、ソースコードの該当個所へスクロールします。</p>
-<table phptal:cache="14d per filename" id="methodlist" class="table-bordered table-striped"> 
-<thead> 
-	<tr>
-		<th>
-		method
-		</th>
-		<th>
-		start
-		</th>
-		<th>
-		end
-		</th>
-	</tr>
-</thead> 
-<tbody> 
-	<tr tal:repeat="datum data" tal:attributes="id datum/start">
-		<td tal:content="datum/method">
-		</td>
-		<td tal:content="datum/start">
-		</td>
-		<td tal:content="datum/end">
-		</td>
-	</tr>
-</tbody> 
-</table> 
-<script type="text/javascript">
-$("table#methodlist tr").click(function(){
-	var attrid = $(this).attr("id");
-	$(".pre-scrollable").scrollTop(0);
-	$(".pre-scrollable").scrollTop($("a[name="+attrid+"]").position().top-$(".pre-scrollable").position().top);
-});
-</script>
-<p tal:condition="php:!empty(inheriteddata)">親クラスで定義されたメソッド(クリックしても移動しません)</p>
-<table tal:condition="php:!empty(inheriteddata)" phptal:cache="14d per filename" id="inheritedmethods" class="table-bordered table-striped" style="word-break: break-all;"> 
-<thead> 
-	<tr>
-		<th>
-		method
-		</th>
-		<th>
-		class
-		</th>
-	</tr>
-</thead> 
-<tbody> 
-	<tr tal:repeat="datum inheriteddata">
-		<td tal:content="datum/method">
-		</td>
-		<td tal:content="datum/class">
-		</td>
-	</tr>
-</tbody> 
-</table> 
-</div>
+    <div class="row" metal:fill-slot="content" >
+        <div class="span3">
+            <p>メソッド名をクリックすると、ソースコードの該当個所へスクロールします。</p>
+            <table phptal:cache="14d per filename" id="methodlist" class="table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>
+                        method
+                    </th>
+                    <th>
+                        start
+                    </th>
+                    <th>
+                        end
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr tal:repeat="datum data" tal:attributes="id datum/start">
+                    <td tal:content="datum/method">
+                    </td>
+                    <td tal:content="datum/start">
+                    </td>
+                    <td tal:content="datum/end">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <script type="text/javascript">
+                $("table#methodlist tr").click(function(){
+                    var attrid = $(this).attr("id");
+                    $(".pre-scrollable").scrollTop(0);
+                    $(".pre-scrollable").scrollTop($("a[name="+attrid+"]").position().top-$(".pre-scrollable").position().top);
+                });
+            </script>
+            <p tal:condition="php:!empty(inheriteddata)">親クラスで定義されたメソッド(クリックしても移動しません)</p>
+            <table tal:condition="php:!empty(inheriteddata)" phptal:cache="14d per filename" id="inheritedmethods" class="table-bordered table-striped" style="word-break: break-all;">
+                <thead>
+                <tr>
+                    <th>
+                        method
+                    </th>
+                    <th>
+                        class
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr tal:repeat="datum inheriteddata">
+                    <td tal:content="datum/method">
+                    </td>
+                    <td tal:content="datum/class">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
-<div phptal:cache="14d per filename" id="sourcearea" class="span9">
-<?php
-// remove path higher than fuel
-// it might contain crucial information
-?>
-<div tal:define="format string:File: %s line: %d - %d; fname php:substr(filename,strpos(filename,'fuel/'))">
-<p tal:content="structure php: sprintf(format, fname,startline,endline)">
-		</p>
-</div>
+        <div phptal:cache="14d per filename" id="sourcearea" class="span9">
+            <?php
+                    // remove path higher than fuel
+                    // it might contain crucial information
+                    ?>
+            <div tal:define="format string:File: %s line: %d - %d; fname php:substr(filename,strpos(filename,'fuel/'))">
+                <p tal:content="structure php: sprintf(format, fname,startline,endline)">
+                </p>
+            </div>
 	<pre class="pre-scrollable prettyprint">
 <tal:block tal:repeat="data source" phptal:cache="14d per filename"><a tal:attributes="name repeat/data/key;id repeat/data/key"> </a>${data}</tal:block>
-</pre>
-<p>
-このページを <span id="number">1</span> 回閲覧しました。
-前回の閲覧: <span id="lastview">0</span> 
-</p>
-<textarea cols="50" class="span9" rows="4" id="memotext" placeholder="You can enter a memo here."></textarea>
-<script type="text/javascript">
-	jQuery(document).ready(function(){
-			var val = 1;
-			var data = localStorage.getItem("<tal:block tal:content="classname">num</tal:block>Val");
-			if (data !== null) {
-			val += parseInt(data);
-			}
-			localStorage.setItem("<tal:block tal:content="classname">num</tal:block>Val",val);
-			$('#number').text(val);
+	</pre>
+            <textarea id="rawtext" style="display:none">
+                <tal:block tal:repeat="data source" phptal:cache="14d per filename">${data}</tal:block>
+            </textarea>
+            <p>
+                このページを <span id="number">1</span> 回閲覧しました。
+                前回の閲覧: <span id="lastview">0</span>
+            </p>
+        </div>
+        <script type="text/javascript">
+            jQuery(document).ready(function(){
+                var val = 1;
+                var view_times = localStorage.getItem("<tal:block tal:content="classname">num</tal:block>Val");
+                if (view_times !== null) {
+                    val += parseInt(view_times);
+                }
+                localStorage.setItem("<tal:block tal:content="classname">num</tal:block>Val",val);
+                $('#number').text(val);
 
-			var dateval = 'first time';
-			var tmpdata = localStorage.getItem("<tal:block tal:content="classname">num</tal:block>Date");
-			if (tmpdata !== null) {
-			dateval = tmpdata;
-			}
-			$('#lastview').text(dateval);
-			nowdate = new Date();
-			datein = nowdate.getFullYear()  + "年" + (nowdate.getMonth() + 1) + "月" + nowdate.getDate() + "日";
-			localStorage.setItem("<tal:block tal:content="classname">num</tal:block>Date",datein);
-			$(document).ready(function(){
-				$('#memotext').val(localStorage.getItem('<tal:block tal:content="classname">class</tal:block>Text'));
-				});
-			$('#memotext').keyup(function(){
-					localStorage.setItem('<tal:block tal:content="classname">class</tal:block>Text',jQuery('#memotext').val());
-					});
-	});
-</script>
-<div class="fb-comments" tal:attributes="data-href php:Uri::current()" data-num-posts="5" data-width="650"></div>
-<p>
-<a href="http://fuel.php-web.net/">TOPPAGE へ戻る</a> 
-</p>
-</div>
-</div>
+                var dateval = 'first time';
+                var tmpdata = localStorage.getItem("<tal:block tal:content="classname">num</tal:block>Date");
+                if (tmpdata !== null) {
+                    dateval = tmpdata;
+                }
+                $('#lastview').text(dateval);
+                nowdate = new Date();
+                datein = nowdate.getFullYear()  + "年" + (nowdate.getMonth() + 1) + "月" + nowdate.getDate() + "日";
+                localStorage.setItem("<tal:block tal:content="classname">num</tal:block>Date",datein);
+
+                var codetext = localStorage.getItem("<tal:block tal:content="classname">class</tal:block>Code");
+                if (codetext === null) {
+                    localStorage.setItem('<tal:block tal:content="classname">class</tal:block>Code',jQuery('#rawtext').val());
+                }
+
+                $(document).ready(function(){
+                    $('#memotext').val(localStorage.getItem('<tal:block tal:content="classname">class</tal:block>Text'));
+                });
+
+                $('#memotext').keyup(function(){
+                    localStorage.setItem('<tal:block tal:content="classname">class</tal:block>Text',jQuery('#memotext').val());
+                });
+
+                $('#save_code').click(function(){
+                    localStorage.setItem('<tal:block tal:content="classname">class</tal:block>Code',jQuery('#rawtext').val());
+                });
+            });
+        </script>
+        <div class="span12">
+            <div id="compare"></div>
+            <p>
+                このバージョンを <span id="save_code" class="btn">記録する</span>
+            </p>
+            <script>
+                $(document).ready(function () {
+                    $('#compare').mergely({
+                        cmsettings: { readOnly: true, lineNumbers: false, editor_height: '300px' },
+                    });
+                    $('#compare').mergely('lhs', jQuery('#rawtext').val());
+                    saved_code = localStorage.getItem("<tal:block tal:content="classname">num</tal:block>Code");
+                    if (saved_code !== null) {
+                        $('#compare').mergely('rhs', saved_code);
+                    }
+                });
+            </script>
+        </div>
+    </div>
+    <textarea cols="50" class="span12" rows="4" id="memotext" placeholder="You can enter a memo here."></textarea>
+    <p>
+        <a href="http://fuel.php-web.net/">TOPPAGE へ戻る</a>
+    </p>
 </div>
 
 </body>
