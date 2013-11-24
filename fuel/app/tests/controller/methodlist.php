@@ -11,8 +11,6 @@ class Tests_Methodlist extends \TestCase
 	protected function setUp()
 	{
 		parent::setUp();
-		//$this->method = new ReflectionMethod('Controller_Methodlist','_form');
-		//$this->method->setAccessible(true);
 	}
 
 	protected function tearDown()
@@ -23,7 +21,6 @@ class Tests_Methodlist extends \TestCase
 	function test_form_returnObj()
 	{
 		$obj = 'fieldset';
-		//$data = $this->method->invoke(new Controller_Methodlist);
 		$data = Controller_Methodlist::_form();
 		$this->assertInstanceOf($obj,$data);
 	}
@@ -31,8 +28,6 @@ class Tests_Methodlist extends \TestCase
 	{
 		$obj = 'fieldset_field';
 		$key = 'fuel_csrf_token';
-		//$data_obj = $this->method->invoke(new Controller_Methodlist);
-		//$data = $data_obj->field($key);
 		$data = Controller_Methodlist::_form()->field($key);
 		$this->assertInstanceOf($obj,$data);
 	}
