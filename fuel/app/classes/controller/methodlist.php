@@ -11,6 +11,7 @@ class Controller_Methodlist extends Controller
     {
         return Response::forge($this->_index(),404);
     }
+    // ユニットテストしやすいようにアクセス権はpublicだが、外からは通常呼び出さない
     function _index()
     {
         $view = View_Phptal::forge('methodlist/index');
@@ -25,7 +26,7 @@ class Controller_Methodlist extends Controller
         $view->set('error_message', Session::get_flash('error_message'));
         return $view;
     }
-
+    // ユニットテストしやすいようにアクセス権はpublicだが、外からは通常呼び出さない
     function _form()
     {
         $form = Fieldset::forge();
@@ -72,6 +73,7 @@ class Controller_Methodlist extends Controller
     {
         // Security check is folked from:
         // https://github.com/kenjis/sample-contact-form/blob/master/fuel/app/classes/controller/form.php
+        // original code is available under MIT license.
         try
         {
             if ( ! \Security::check_token())
@@ -108,6 +110,7 @@ class Controller_Methodlist extends Controller
             Response::redirect('');
         }
     }
+    // ユニットテストしやすいようにアクセス権はpublicだが、外からは通常呼び出さない
     function _sourceview($classname)
     {
         if ('' == $classname)

@@ -3,7 +3,7 @@
  * Source_View
  *
  * @author Fumito MIZUNO <mizuno@php-web.net>
- * @license LGPL {@link http://www.gnu.org/copyleft/lesser.html}
+ * @license LGPL 2.1 or later {@link http://www.gnu.org/copyleft/lesser.html}
  */
 class SourceView extends ReflectionClass {
     protected $data = array();
@@ -21,7 +21,7 @@ class SourceView extends ReflectionClass {
      * @access public
      * @return object
      */
-    function _createFileData() {
+    public function _createFileData() {
         $filename = $this->getFileName();
         if(!file_exists($filename)) {
             throw new RuntimeException("Classname " . $this->name . " is not found.");
@@ -38,7 +38,7 @@ class SourceView extends ReflectionClass {
      * @access public
      * @return array
      */
-    function outData($escape='escape') {
+    public function outData($escape='escape') {
         $startline = $this->getStartLine();
         $endline = $this->getEndLine();
         $out = array();
